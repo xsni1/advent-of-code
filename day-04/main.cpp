@@ -17,152 +17,72 @@ int main() {
     chars.push_back(l);
   }
 
-  std::string word = "XMAS";
   for (int i = 0; i < chars.size(); i++) {
     for (int j = 0; j < chars[i].size(); j++) {
-      bool found = true;
-
-      for (int k = 0; k < word.size(); k++) {
-          if (j+k >= chars[i].size()) {
-              found = false;
-              break;
-          }
-          if (word[k] != chars[i][k+j]) {
-              found = false;
-              break;
-          }
+      if (chars[i][j] != 'A') {
+        continue;
       }
-      res += found ? 1 : 0;
 
-
-      found = true;
-      for (int k = 0; k < word.size(); k++) {
-          if (j-k < 0) {
-              found = false;
-              break;
-          }
-          if (word[k] != chars[i][j-k]) {
-              found = false;
-              break;
-          }
+      if (i + 1 >= chars.size()) {
+        continue;
       }
-      res += found ? 1 : 0;
-
-
-      found = true;
-      for (int k = 0; k < word.size(); k++) {
-          if (i-k < 0) {
-              found = false;
-              break;
-          }
-          if (word[k] != chars[i-k][j]) {
-              found = false;
-              break;
-          }
+      if (i - 1 < 0) {
+        continue;
       }
-      res += found ? 1 : 0;
-
-
-      found = true;
-      for (int k = 0; k < word.size(); k++) {
-          if (i+k >= chars.size()) {
-              found = false;
-              break;
-          }
-          if (word[k] != chars[i+k][j]) {
-              found = false;
-              break;
-          }
+      if (j + 1 >= chars[i].size()) {
+        continue;
       }
-      res += found ? 1 : 0;
+      if (j - 1 < 0) {
+        continue;
+      }
 
-      found = true;
-      for (int k = 0; k < word.size(); k++) {
-        int x = j + k;
-        int y = i + k;
+      if (chars[i - 1][j - 1] == 'M') {
+        if (chars[i + 1][j + 1] == 'S') {
+          if (chars[i - 1][j + 1] == 'M') {
+            if (chars[i + 1][j - 1] == 'S') {
+              res++;
+            }
+          }
 
-        if (y >= chars.size()) {
-          found = false;
-          break;
-        }
-
-        if (x >= chars[i].size()) {
-          found = false;
-          break;
-        }
-
-        if (word[k] != chars[x][y]) {
-          found = false;
-          break;
+          if (chars[i - 1][j + 1] == 'S') {
+            if (chars[i + 1][j - 1] == 'M') {
+              res++;
+            }
+          }
         }
       }
-      res += found ? 1 : 0;
 
-      found = true;
-      for (int k = 0; k < word.size(); k++) {
-        int x = j - k;
-        int y = i - k;
+      if (chars[i - 1][j - 1] == 'S') {
+        if (chars[i + 1][j + 1] == 'M') {
+          if (chars[i - 1][j + 1] == 'M') {
+            if (chars[i + 1][j - 1] == 'S') {
+              res++;
+            }
+          }
 
-        if (y < 0) {
-          found = false;
-          break;
-        }
-
-        if (x < 0) {
-          found = false;
-          break;
-        }
-
-        if (word[k] != chars[x][y]) {
-          found = false;
-          break;
+          if (chars[i - 1][j + 1] == 'S') {
+            if (chars[i + 1][j - 1] == 'M') {
+              res++;
+            }
+          }
         }
       }
-      res += found ? 1 : 0;
 
-      found = true;
-      for (int k = 0; k < word.size(); k++) {
-        int x = j + k;
-        int y = i - k;
+      // M M
+      //  A
+      // S S
 
-        if (y < 0) {
-          found = false;
-          break;
-        }
+      // S M
+      //  A
+      // S M
 
-        if (x >= chars[i].size()) {
-          found = false;
-          break;
-        }
+      // S S
+      //  A
+      // M M
 
-        if (word[k] != chars[x][y]) {
-          found = false;
-          break;
-        }
-      }
-      res += found ? 1 : 0;
-
-      found = true;
-      for (int k = 0; k < word.size(); k++) {
-        int x = j - k;
-        int y = i + k;
-
-        if (y >= chars.size()) {
-          found = false;
-          break;
-        }
-
-        if (x < 0) {
-          found = false;
-          break;
-        }
-
-        if (word[k] != chars[x][y]) {
-          found = false;
-          break;
-        }
-      }
-      res += found ? 1 : 0;
+      // M S
+      //  A
+      // M S
     }
   }
   std::cout << "Result: " << res;
